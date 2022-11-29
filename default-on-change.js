@@ -1,11 +1,13 @@
 var execSync = require('child_process').execSync
 
-module.exports = function (data) {
+module.exports = function (data, buildNumber, commitNumber) {
   return new Promise(function (resolve, reject) {
     try {
       if (data.path.endsWith('.java')) {
         console.log('running mvn clean install', data)
-        execSync('mvn clean install -DskipTests=true -nsu', {cwd: data.dir, stdio: [0, 1, 2]})
+        console.log(buildNumber)
+        console.log(commitNumber)
+        execSync(`mvn clean install -DbuildNumber=${buildNumber} -DcommitNum=${commitNumber} -DskipTests=true -nsu`, {cwd: data.dir, stdio: [0, 1, 2]})
       } else {
         console.log('unhandled path [' + data.path + ']', data.type)
       }

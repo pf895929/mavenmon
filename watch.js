@@ -104,7 +104,8 @@ function executeQueueItem (data) {
   if (!ready) {
     return
   }
-  var promise = onchange(data)
+
+  var promise = onchange(data, argv.buildNumber, argv.commitNumber)
   if (!promise || !promise.then) {
     throw new Error('onchange must return a promise')
   }
