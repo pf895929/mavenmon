@@ -5,8 +5,6 @@ module.exports = function (data, buildNumber, commitNumber) {
     try {
       if (data.path.endsWith('.java')) {
         console.log('running mvn clean install', data)
-        console.log(buildNumber)
-        console.log(commitNumber)
         execSync(`mvn clean install -DbuildNumber=${buildNumber} -DcommitNum=${commitNumber} -DskipTests=true -nsu`, {cwd: data.dir, stdio: [0, 1, 2]})
       } else {
         console.log('unhandled path [' + data.path + ']', data.type)
